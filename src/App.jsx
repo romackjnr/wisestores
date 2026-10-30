@@ -7,7 +7,7 @@ import FlavorSection from "./sections/FlavorSection";
 import ProductPage from "./components/ProductPage";
 import FooterSection from "./sections/FooterSection";
 import { useEffect, useState } from "react";
-import { products } from "./constants";
+import { heroProducts, products } from "./constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,7 +33,8 @@ const App = () => {
   const isProductPage = routeHash.startsWith("#nutrition");
   const productId = routeHash.split("/")[1];
   const selectedProduct =
-    products.find((product) => product.id === productId) ?? products[0];
+    [...products, ...heroProducts].find((product) => product.id === productId) ??
+    products[0];
 
   useEffect(() => {
     window.scrollTo(0, 0);

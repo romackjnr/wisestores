@@ -3,42 +3,18 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMediaQuery } from "react-responsive";
+import { heroProducts } from "../constants";
 import "./HeroSection.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const BASE = import.meta.env.BASE_URL;
 
-const IMAGES = [
-  {
-    src: `${BASE}images/monohydrate.png`,
-    bg: "#3b1406",
-    title: "creatine",
-    name: "CREATINE MONOHYDRATE",
-    desc: "Micronized creatine monohydrate, unflavored. 5g per serving, 100 servings in a 500g container. Quality guaranteed and third-party tested.",
-  },
-  {
-    src: `${BASE}images/supp.png`,
-    bg: "#277936",
-    title: "SUPPS",
-    name: " CREATINE POWDER",
-    desc: "100% pure creatine monohydrate for muscle building support. 5g per serving, 60 servings in a 300g tub. Unflavored and banned substance tested.",
-  },
-  {
-    src: `${BASE}images/boost.png`,
-    bg: "#530b2e",
-    title: "BOOST",
-    name: "FOR THE WOMEN",
-    desc: "Muscle support for women. Every serving blends 5g creatine with 2.5g collagen peptides, 1g BCAA and 1g L-glutamine. Unflavored, 30 servings.",
-  },
-  {
-    src: `${BASE}images/mass.png`,
-    bg: "#173453",
-    title: "mass",
-    name: "SERIOUS MASS",
-    desc: "Chocolate protein powder drink mix with 50g protein and 1,260 calories per serving. Regularly tested for banned substances. 5lb tub.",
-  },
-];
+const IMAGES = heroProducts.map((product) => ({
+  ...product,
+  src: `${BASE}images/${product.image}`,
+  desc: product.description,
+}));
 
 const COUNT = IMAGES.length;
 const TRANSITION_MS = 650;
@@ -166,15 +142,6 @@ const HeroSection = () => {
       onPointerLeave={(e) => e.pointerType === "mouse" && setPaused(false)}
       style={{ backgroundColor: IMAGES[activeIndex].bg }}
     >
-      {/* One video plays behind every slide; the colour tint fades per slide */}
-      <video
-        className="toon-video"
-        src={`${BASE}videos/hero-bg.mp4`}
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
       <div
         className="toon-tint"
         style={{ backgroundColor: IMAGES[activeIndex].bg }}
@@ -236,13 +203,19 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <a className="toon-discover" href="#">
-        DISCOVER IT
+      <button
+        type="button"
+        className="toon-discover"
+        onClick={() => {
+          window.location.hash = `nutrition/${IMAGES[activeIndex].id}`;
+        }}
+      >
+        BUY NOW
         <svg viewBox="0 0 24 24">
           <line x1="5" y1="12" x2="19" y2="12" />
           <polyline points="12 5 19 12 12 19" />
         </svg>
-      </a>
+      </button>
     </div>
     </section>
   );

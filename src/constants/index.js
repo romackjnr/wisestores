@@ -66,6 +66,45 @@ const products = [
   },
 ];
 
+const heroProducts = [
+  {
+    id: "creatine-monohydrate",
+    image: "monohydrate.png",
+    title: "creatine",
+    name: "CREATINE MONOHYDRATE",
+    description:
+      "Micronized creatine monohydrate, unflavored. 5g per serving, 100 servings in a 500g container. Quality guaranteed and third-party tested.",
+    bg: "#3b1406",
+  },
+  {
+    id: "creatine-powder",
+    image: "supp.png",
+    title: "SUPPS",
+    name: "CREATINE POWDER",
+    description:
+      "100% pure creatine monohydrate for muscle building support. 5g per serving, 60 servings in a 300g tub. Unflavored and banned substance tested.",
+    bg: "#277936",
+  },
+  {
+    id: "creatine-for-women",
+    image: "boost.png",
+    title: "BOOST",
+    name: "FOR THE WOMEN",
+    description:
+      "Muscle support for women. Every serving blends 5g creatine with 2.5g collagen peptides, 1g BCAA and 1g L-glutamine. Unflavored, 30 servings.",
+    bg: "#530b2e",
+  },
+  {
+    id: "serious-mass",
+    image: "mass.png",
+    title: "mass",
+    name: "SERIOUS MASS",
+    description:
+      "Chocolate protein powder drink mix with 50g protein and 1,260 calories per serving. Regularly tested for banned substances. 5lb tub.",
+    bg: "#173453",
+  },
+];
+
 const nutrientLists = [
   { label: "Potassium", amount: "245mg" },
   { label: "Calcium", amount: "500mg" },
@@ -124,4 +163,4 @@ const cards = [
   },
 ];
 
-export { products, nutrientLists, cards };
+export { products, heroProducts, nutrientLists, cards };

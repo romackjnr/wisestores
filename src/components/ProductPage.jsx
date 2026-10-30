@@ -108,7 +108,7 @@ const ProductPage = ({ product }) => {
           <div className="flex flex-col items-center md:translate-y-5">
             <img
               src={imageSrc}
-              alt={`${product.name} whey protein`}
+              alt={`${product.name} product`}
               className="product-page-image"
             />
             <p className="product-description mt-3 max-w-md text-center font-sans text-xl font-bold leading-relaxed text-dark-brown md:mt-1 md:text-2xl">
