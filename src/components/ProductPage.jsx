@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
+import { getProductImageUrl } from "../constants";
 
 const ProductPage = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [cartMessage, setCartMessage] = useState("");
-  const imageSrc = `${import.meta.env.BASE_URL}images/${product.image}`;
+  const imageSrc = getProductImageUrl(product.image);
 
   useEffect(() => {
     setQuantity(1);

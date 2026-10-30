@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMediaQuery } from "react-responsive";
-import { heroProducts } from "../constants";
+import { getProductImageUrl, heroProducts } from "../constants";
 import "./HeroSection.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -12,7 +12,7 @@ const BASE = import.meta.env.BASE_URL;
 
 const IMAGES = heroProducts.map((product) => ({
   ...product,
-  src: `${BASE}images/${product.image}`,
+  src: getProductImageUrl(product.image),
   desc: product.description,
 }));
 
@@ -144,7 +144,7 @@ const HeroSection = () => {
     >
       <video
         className="toon-video"
-        src={`${BASE}videos/hero-bg.mp4`}
+        src="https://res.cloudinary.com/msz67c6u/video/upload/v1793373046/hero-bg.mp4"
         autoPlay
         muted
         loop

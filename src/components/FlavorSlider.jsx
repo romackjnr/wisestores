@@ -1,5 +1,5 @@
 import { useGSAP } from "@gsap/react";
-import { products } from "../constants";
+import { getProductImageUrl, products } from "../constants";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import "./FlavorSlider.css";
@@ -117,7 +117,7 @@ const FlavorCard = ({ flavor }) => {
         <div className="fc-circle" />
 
         <img
-          src={`${base}images/${flavor.image}`}
+          src={getProductImageUrl(flavor.image)}
           alt={`${flavor.name} whey protein`}
           className="fc-product"
           draggable={false}

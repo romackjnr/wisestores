@@ -1,10 +1,13 @@
 const base = import.meta.env.BASE_URL;
 
+const getProductImageUrl = (image) =>
+  /^https?:\/\//i.test(image) ? image : `${base}images/${image}`;
+
 const products = [
   {
     id: "matcha",
     name: "Matcha",
-    image: "matcha.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372540/matcha.png",
     description: "Earthy matcha flavor with a smooth, creamy finish.",
     color: "black",
     accent: "#79a638",
@@ -13,7 +16,7 @@ const products = [
   {
     id: "milk",
     name: "Milk",
-    image: "milk.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372537/milk.png",
     description: "A classic, mellow milk flavor with a soft and creamy finish.",
     color: "white",
     accent: "#d8c8a9",
@@ -22,7 +25,7 @@ const products = [
   {
     id: "chocolate",
     name: "Chocolate",
-    image: "chocolate.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372091/chocolate.png",
     description: "Rich chocolate flavor with a smooth, satisfying finish.",
     color: "brown",
     accent: "#80503b",
@@ -31,7 +34,7 @@ const products = [
   {
     id: "vanilla",
     name: "Vanilla",
-    image: "vanila.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372542/vanila.png",
     description: "Creamy vanilla notes with a soft, balanced finish.",
     color: "white",
     accent: "#eadf9d",
@@ -40,7 +43,7 @@ const products = [
   {
     id: "banana",
     name: "Banana",
-    image: "banana.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372538/banana.png",
     description: "Sweet banana flavor with a creamy, familiar finish.",
     color: "orange",
     accent: "#efd25a",
@@ -49,7 +52,7 @@ const products = [
   {
     id: "strawberry",
     name: "Strawberry",
-    image: "strawberry.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372541/strawberry.png",
     description: "Bright strawberry flavor with a smooth, creamy finish.",
     color: "red",
     accent: "#ed3d49",
@@ -58,7 +61,7 @@ const products = [
   {
     id: "lemon",
     name: "Lemon",
-    image: "lemon.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372537/lemon.png",
     description: "Zesty lemon flavor with a crisp, refreshing finish.",
     color: "orange",
     accent: "#f1da38",
@@ -69,7 +72,7 @@ const products = [
 const heroProducts = [
   {
     id: "creatine-monohydrate",
-    image: "monohydrate.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372537/monohydrate.png",
     title: "creatine",
     name: "CREATINE MONOHYDRATE",
     description:
@@ -78,7 +81,7 @@ const heroProducts = [
   },
   {
     id: "creatine-powder",
-    image: "supp.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372541/supp.png",
     title: "SUPPS",
     name: "CREATINE POWDER",
     description:
@@ -87,7 +90,7 @@ const heroProducts = [
   },
   {
     id: "creatine-for-women",
-    image: "boost.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372537/boost.png",
     title: "BOOST",
     name: "FOR THE WOMEN",
     description:
@@ -96,7 +99,7 @@ const heroProducts = [
   },
   {
     id: "serious-mass",
-    image: "mass.png",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372538/mass.png",
     title: "mass",
     name: "SERIOUS MASS",
     description:
@@ -163,4 +166,4 @@ const cards = [
   },
 ];
 
-export { products, heroProducts, nutrientLists, cards };
+export { products, heroProducts, nutrientLists, cards, getProductImageUrl };
