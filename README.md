@@ -39,8 +39,8 @@ Browse flavor products, view product details, and adjust quantities in the local
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Prince-Elie/Spylt-awward-clone.git
-   cd Spylt-awward-clone
+   git clone https://github.com/romackjnr/wisestores.git
+   cd wisestores
    ```
 
 2. **Install dependencies**
