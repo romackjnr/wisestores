@@ -142,6 +142,16 @@ const HeroSection = () => {
       onPointerLeave={(e) => e.pointerType === "mouse" && setPaused(false)}
       style={{ backgroundColor: IMAGES[activeIndex].bg }}
     >
+      <video
+        className="toon-video"
+        src={`${BASE}videos/hero-bg.mp4`}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      />
+
       <div
         className="toon-tint"
         style={{ backgroundColor: IMAGES[activeIndex].bg }}

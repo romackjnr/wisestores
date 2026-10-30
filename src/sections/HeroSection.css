@@ -15,10 +15,19 @@
   box-sizing: border-box;
 }
 
+.toon-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
 /* Slide colour laid over the video; its colour cross-fades between slides.
    Lower --toon-tint-opacity to show more video, raise it for more colour. */
 .toon-tint {
-  --toon-tint-opacity: 0.6;
+  --toon-tint-opacity: 0.85;
   position: absolute;
   inset: 0;
   z-index: 1;
