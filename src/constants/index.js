@@ -71,6 +71,15 @@ const products = [
 
 const heroProducts = [
   {
+    id: "tota-war-pre-workout",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793553973/file_00000000b85c81f48648c471eda8ada3.png",
+    title: "TOTA WAR",
+    name: "TOTA WAR PRE-WORKOUT - MIX BERRY",
+    description:
+      "Mix-berry flavored pre-workout supplement in a 300 g tub with 30 servings.",
+    bg: "#171513",
+  },
+  {
     id: "creatine-monohydrate",
     image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793372537/monohydrate.png",
     title: "creatine",
@@ -114,15 +123,6 @@ const heroProducts = [
     description:
       "Vanilla-flavored Gold Standard whey protein powder in a 5 lb tub with 73 servings.",
     bg: "#49161c",
-  },
-  {
-    id: "tota-war-pre-workout",
-    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793553973/file_00000000b85c81f48648c471eda8ada3.png",
-    title: "TOTA WAR",
-    name: "TOTA WAR PRE-WORKOUT - MIX BERRY",
-    description:
-      "Mix-berry flavored pre-workout supplement in a 300 g tub with 30 servings.",
-    bg: "#171513",
   },
 ];
 

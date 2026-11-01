@@ -78,6 +78,7 @@ const HeroSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const isAnimating = useRef(false);
   const heroRef = useRef(null);
+  const swipeStartRef = useRef(null);
   const [paused, setPaused] = useState(false);
 
   // Hold the hero in place while the message section scrolls over it.
@@ -113,6 +114,27 @@ const HeroSection = () => {
       isAnimating.current = false;
     }, TRANSITION_MS);
   }, []);
+
+  const handleCarouselPointerDown = (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    swipeStartRef.current = { x: event.clientX, y: event.clientY };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handleCarouselPointerUp = (event) => {
+    const start = swipeStartRef.current;
+    swipeStartRef.current = null;
+    if (!start) return;
+
+    const deltaX = event.clientX - start.x;
+    const deltaY = event.clientY - start.y;
+    if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+    navigate(deltaX < 0 ? "next" : "prev");
+  };
+
+  const handleCarouselPointerCancel = () => {
+    swipeStartRef.current = null;
+  };
 
   // Autoslide: advances after AUTOSLIDE_MS. The timer restarts whenever the
   // slide changes (including manual clicks) and pauses while a mouse hovers.
@@ -173,7 +195,12 @@ const HeroSection = () => {
 
       <div className="toon-brand"></div>
 
-      <div className="toon-carousel">
+      <div
+        className="toon-carousel"
+        onPointerDown={handleCarouselPointerDown}
+        onPointerUp={handleCarouselPointerUp}
+        onPointerCancel={handleCarouselPointerCancel}
+      >
         {IMAGES.map((d, i) => (
           <div
             key={d.src}
