@@ -3,18 +3,30 @@ import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
 import { getProductImageUrl } from "../constants";
+import { PRODUCT_PRICES, STORE_CURRENCY } from "../constants/product-pricing";
+
+const formatPrice = (amount) =>
+  new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: STORE_CURRENCY,
+    maximumFractionDigits: 0,
+  }).format(amount);
 
 const ProductPage = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
-  const [cartMessage, setCartMessage] = useState("");
   const imageSrc = getProductImageUrl(product.image);
+  const pricing = PRODUCT_PRICES[product.id];
+  const savings = pricing ? pricing.originalPrice - pricing.price : 0;
+  const hasDiscount = savings > 0;
+  const discountPercent = hasDiscount
+    ? Math.round((savings / pricing.originalPrice) * 100)
+    : 0;
 
   useEffect(() => {
     setQuantity(1);
-    setCartMessage("");
   }, [product.id]);
 
-  const handleAddToCart = () => {
+  const handleBuyNow = () => {
     let cart = [];
 
     try {
@@ -34,7 +46,7 @@ const ProductPage = ({ product }) => {
       : [...cart, { productId: product.id, name: product.name, image: product.image, quantity }];
 
     localStorage.setItem("wisemax-cart", JSON.stringify(updatedCart));
-    setCartMessage(`${quantity} ${product.name} added to cart`);
+    window.location.hash = "checkout";
   };
 
   useGSAP(() => {
@@ -115,16 +127,35 @@ const ProductPage = ({ product }) => {
             <p className="product-description mt-3 max-w-md text-center font-sans text-xl font-bold leading-relaxed text-dark-brown md:mt-1 md:text-2xl">
               {product.description}
             </p>
+            {pricing && (
+              <div className="product-pricing" aria-label={`${product.name} pricing`}>
+                {hasDiscount && (
+                  <span className="product-pricing-badge">{discountPercent}% off</span>
+                )}
+                <div className="product-pricing-main">
+                  <strong className="product-pricing-price">
+                    <span className="sr-only">Price: </span>
+                    {formatPrice(pricing.price)}
+                  </strong>
+                  {hasDiscount && (
+                    <del className="product-pricing-original">
+                      <span className="sr-only">Original price: </span>
+                      {formatPrice(pricing.originalPrice)}
+                    </del>
+                  )}
+                </div>
+                {hasDiscount && (
+                  <p className="product-pricing-save">
+                    You save {formatPrice(savings)}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       <div className="product-purchase">
-        {cartMessage && (
-          <p className="product-cart-message" role="status">
-            {cartMessage}
-          </p>
-        )}
         <div className="product-purchase-bar">
           <div className="product-quantity">
             <span className="font-paragraph text-sm font-semibold uppercase">Qty</span>
@@ -149,7 +180,7 @@ const ProductPage = ({ product }) => {
           <button
             type="button"
             className="product-purchase-button"
-            onClick={handleAddToCart}
+            onClick={handleBuyNow}
           >
             BUY NOW
           </button>

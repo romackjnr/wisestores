@@ -1,6 +1,6 @@
-# Wisemax Storefront
+# NurtureNova Storefront
 
-Responsive React storefront for browsing Wisemax protein flavors, built with Vite, Tailwind CSS, and GSAP.
+Responsive React storefront for browsing NurtureNova protein products, built with Vite, Tailwind CSS, and GSAP.
 
 ## Live Demo
 
@@ -8,7 +8,7 @@ Visit the live site at **[https://romackjnr.github.io/wisestores/](https://romac
 
 ## �🎨 Description
 
-Browse flavor products, view product details, and adjust quantities in the local cart. Checkout and payment processing are not connected.
+Browse flavor products, view product details, and adjust quantities in the local cart. Paystack checkout requires a server-side `PAYSTACK_SECRET_KEY` configured in Vercel.
 
 ## 🚀 Features
 

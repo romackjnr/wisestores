@@ -95,7 +95,7 @@ const heroProducts = [
     name: "FOR THE WOMEN",
     description:
       "Muscle support for women. Every serving blends 5g creatine with 2.5g collagen peptides, 1g BCAA and 1g L-glutamine. Unflavored, 30 servings.",
-    bg: "#530b2e",
+    bg: "#53220b",
   },
   {
     id: "serious-mass",

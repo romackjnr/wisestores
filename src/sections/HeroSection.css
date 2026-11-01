@@ -137,6 +137,22 @@
   -webkit-user-drag: none;
 }
 
+/* Readability scrim: dark gradient rising from the bottom-left corner */
+.toon-text-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 55% 60% at 0% 100%,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.45) 45%,
+      transparent 100%
+    ),
+    linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 35%);
+}
+
 .toon-bottom-left {
   position: absolute;
   bottom: 1.5rem;
@@ -162,22 +178,31 @@
 }
 
 .toon-product-title {
-  font-weight: 700;
+  font-family: "Anton", sans-serif;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 1rem;
+  letter-spacing: 0.06em;
+  font-size: 2rem;
+  line-height: 1.05;
   color: white;
-  opacity: 0.95;
-  margin: 0 0 0.5rem;
+  opacity: 1;
+  margin: 0 0 0.6rem;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .toon-product-desc {
-  display: none;
-  font-size: 0.8rem;
+  font-size: 1.15rem;
+  font-weight: 500;
   color: white;
-  opacity: 0.85;
-  line-height: 1.6;
-  margin: 0 0 1rem;
+  opacity: 1;
+  line-height: 1.55;
+  margin: 0 0 1.1rem;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .toon-nav-buttons {
@@ -217,14 +242,14 @@
 
 .toon-discover {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 3rem;
   right: 1rem;
   z-index: 60;
   display: flex;
   align-items: center;
   gap: 10px;
   font-family: "Anton", sans-serif;
-  font-size: clamp(24px, 4.6vw, 64px);
+  font-size: clamp(29px, 5.52vw, 77px);
   font-weight: 400;
   color: white;
   opacity: 0.95;
@@ -259,17 +284,18 @@
   }
 
   .toon-bottom-left {
-    bottom: 5rem;
+    bottom: 3.25rem;
     left: 6rem;
+    max-width: 400px;
   }
 
   .toon-product-title {
-    font-size: 1.375rem;
+    font-size: 2.75rem;
     margin-bottom: 0.75rem;
   }
 
   .toon-product-desc {
-    display: block;
+    font-size: 1.35rem;
   }
 
   .toon-nav-btn {
@@ -278,13 +304,37 @@
   }
 
   .toon-discover {
-    bottom: 5rem;
+    bottom: 3.25rem;
     right: 2.5rem;
   }
 
   .toon-discover svg {
     width: 2.25rem;
     height: 2.25rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .toon-bottom-left {
+    bottom: 3rem;
+    max-width: min(250px, calc(100vw - 7rem));
+  }
+
+  .toon-product-title {
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  .toon-product-desc {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+  }
+
+  .toon-nav-btn {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }
 

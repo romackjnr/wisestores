@@ -95,6 +95,43 @@ body::-webkit-scrollbar {
   .message-content {
     @apply bg-[#412019] text-milk min-h-dvh overflow-hidden flex justify-center items-center relative z-20;
 
+    .message-bg,
+    .message-overlay {
+      @apply absolute inset-0 w-full h-full pointer-events-none;
+    }
+
+    .message-bg {
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Stacked background slides; GSAP slides each one up over the last.
+       Slides 2 and 3 stay hidden until the animation starts (so reduced
+       motion users just see the first image). */
+    .message-bg-slide {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      will-change: transform;
+
+      &:nth-child(n + 2) {
+        visibility: hidden;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        object-fit: cover;
+        user-select: none;
+      }
+    }
+
+    .message-overlay {
+      z-index: 1;
+      background-color: rgb(65 32 25 / 65%);
+    }
+
     .msg-wrapper {
       @apply 2xl:text-[8.5rem] md:text-8xl text-5xl font-bold uppercase leading-[9vw] tracking-[-.35vw] flex flex-col justify-center items-center md:gap-24 gap-14;
 
@@ -122,22 +159,69 @@ body::-webkit-scrollbar {
   }
 
   .flavor-section {
-    @apply min-h-0 lg:min-h-dvh bg-milk;
+    @apply relative min-h-0 lg:min-h-dvh;
+
+    /* Dark backdrop: one image slides in from the left, a translucent black
+       layer dims it, and a gradient darkens it toward the bottom.
+       Raise/lower --flavor-dim to show less/more image. */
+    --flavor-dim: 0.25;
+    --flavor-blur: 2px;
+
+    .flavor-bg {
+      @apply absolute inset-0 overflow-hidden pointer-events-none;
+      z-index: 0;
+      background-color: #000;
+    }
+
+    .flavor-bg-img {
+      position: absolute;
+      /* oversized by 16px so the blur never fades out at the section edges */
+      top: -16px;
+      left: -16px;
+      width: calc(100% + 32px);
+      height: calc(100% + 32px);
+      max-width: none;
+      filter: blur(var(--flavor-blur));
+      /* cover fills the whole backdrop; adjust object-position to choose what stays in frame */
+      object-fit: cover;
+      object-position: center top;
+      user-select: none;
+    }
+
+    .flavor-bg-dim {
+      position: absolute;
+      inset: 0;
+      background-color: rgb(0 0 0 / var(--flavor-dim));
+    }
+
+    /* Bottom-to-top black fade: solid at the base, clear near the top */
+    .flavor-bg-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgb(0 0 0 / 1) 0%,
+        rgb(0 0 0 / 0.92) 18%,
+        rgb(0 0 0 / 0.6) 45%,
+        rgb(0 0 0 / 0.2) 75%,
+        rgb(0 0 0 / 0) 100%
+      );
+    }
 
     .flavor-text-scroll {
-      @apply rotate-[-3deg] md:translate-y-5 border-[.5vw] border-milk absolute z-10;
+      @apply rotate-[-3deg] md:translate-y-5 border-[.5vw] border-main-bg absolute z-10;
     }
 
     .first-text-split h1 {
-      @apply md:text-center text-dark-brown;
+      @apply md:text-center text-milk;
     }
 
     .second-text-split h1 {
-      @apply md:text-center;
+      @apply md:text-center text-milk;
     }
 
     .slider-wrapper {
-      @apply h-[22.5rem] min-h-0 md:h-auto md:min-h-fit lg:h-dvh w-full mt-0 md:mt-20 xl:mt-0;
+      @apply h-[30rem] min-h-0 md:h-auto md:min-h-fit lg:h-dvh w-full mt-0 md:mt-20 xl:mt-0;
       touch-action: pan-x pan-y;
       overflow-x: auto;
       overflow-y: hidden;
@@ -288,6 +372,182 @@ body::-webkit-scrollbar {
       }
     }
   }
+
+  .checkout-section {
+    @apply relative min-h-dvh overflow-hidden px-5 pb-32 pt-28 md:px-10 md:pt-36;
+    background-image: radial-gradient(circle, #f3ece2, #dcccb0);
+
+    .checkout-inner {
+      @apply mx-auto max-w-7xl;
+    }
+
+    .checkout-text-scroll {
+      @apply rotate-[-3deg] border-[.5vw] border-[#e3d3bc];
+    }
+
+    .checkout-grid {
+      @apply mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14;
+    }
+
+    .checkout-card {
+      @apply rounded-3xl border border-[#e8ddca] bg-[#fdebd2] p-5 md:p-8;
+      box-shadow: 0 12px 32px rgb(34 33 35 / 12%);
+    }
+
+    .checkout-group-title {
+      @apply mb-3 text-2xl uppercase leading-none tracking-wide text-mid-brown;
+
+      &:not(:first-child) {
+        @apply mt-8;
+      }
+    }
+
+    .checkout-row {
+      @apply grid grid-cols-1 gap-x-4 sm:grid-cols-2;
+    }
+
+    .checkout-field {
+      @apply mb-4;
+
+      label {
+        @apply mb-1.5 block font-paragraph text-xs font-semibold uppercase tracking-widest text-[#865720];
+      }
+
+      .checkout-input-wrap {
+        @apply relative;
+
+        svg {
+          @apply pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-mid-brown;
+          fill: none;
+          stroke: currentColor;
+          stroke-width: 2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+
+        input {
+          @apply w-full rounded-2xl border border-[#e8ddca] bg-milk py-3 pl-11 pr-4 font-paragraph text-base text-dark-brown transition-colors placeholder:text-[#865720]/50;
+
+          &:focus-visible {
+            outline: 2px solid #523122;
+            outline-offset: 2px;
+          }
+
+          &[aria-invalid="true"] {
+            @apply border-red;
+          }
+        }
+      }
+    }
+
+    .checkout-error {
+      @apply mt-1 font-paragraph text-sm text-red;
+    }
+
+    .checkout-check {
+      @apply mb-6 mt-2 flex cursor-pointer items-center gap-3 font-paragraph text-sm text-dark-brown;
+
+      input {
+        @apply size-5 flex-none;
+        accent-color: #523122;
+      }
+    }
+
+    .checkout-submit {
+      @apply inline-flex w-full items-center justify-center rounded-full bg-dark-brown px-10 py-3 font-paragraph text-base font-bold uppercase text-milk transition-colors hover:bg-red-brown md:w-auto;
+
+      &:focus-visible {
+        outline: 2px solid #523122;
+        outline-offset: 3px;
+      }
+
+      &:disabled {
+        @apply cursor-not-allowed opacity-40 hover:bg-dark-brown;
+      }
+    }
+
+    .checkout-status {
+      @apply mt-4 rounded-2xl bg-milk px-4 py-3 font-paragraph text-sm font-semibold text-dark-brown;
+    }
+
+    .checkout-summary {
+      @apply rounded-3xl bg-dark-brown p-5 text-milk md:p-8 lg:sticky lg:top-28;
+      box-shadow: 0 12px 32px rgb(34 33 35 / 24%);
+
+      > h2 {
+        @apply mb-5 text-3xl uppercase leading-none tracking-wide text-milk;
+      }
+
+      .checkout-submit {
+        @apply bg-milk text-dark-brown hover:bg-milk-yellow;
+
+        &:focus-visible {
+          outline-color: #faeade;
+        }
+      }
+    }
+
+    .checkout-line {
+      @apply flex items-start gap-4 border-b border-milk/15 py-4 first:pt-0;
+    }
+
+    .checkout-line-image {
+      @apply grid size-24 flex-none place-items-center overflow-hidden rounded-2xl bg-[#412019];
+
+      img {
+        @apply size-full object-contain p-2;
+      }
+    }
+
+    .checkout-line-name {
+      @apply text-xl uppercase leading-tight;
+    }
+
+    .checkout-line-price {
+      @apply mt-1 font-paragraph text-sm text-light-brown;
+    }
+
+    .checkout-qty {
+      @apply mt-3 inline-flex items-center gap-2 font-paragraph;
+
+      button {
+        @apply grid size-8 place-items-center rounded-full bg-milk text-lg text-dark-brown transition-colors hover:bg-milk-yellow;
+
+        &:disabled {
+          @apply cursor-not-allowed opacity-40 hover:bg-milk;
+        }
+
+        &:focus-visible {
+          outline: 2px solid #faeade;
+          outline-offset: 2px;
+        }
+      }
+
+      output {
+        @apply min-w-6 text-center font-bold;
+      }
+    }
+
+    .checkout-remove {
+      @apply flex-none font-paragraph text-xs uppercase text-milk-yellow underline underline-offset-4 transition-colors hover:text-light-brown;
+    }
+
+    .checkout-sum-row {
+      @apply flex items-center justify-between py-2 font-paragraph text-base;
+    }
+
+    .checkout-grand {
+      @apply mt-2 flex items-center justify-between border-t border-milk/25 pt-4 text-3xl uppercase leading-none;
+
+      span:last-child {
+        @apply text-light-brown;
+      }
+    }
+
+    .checkout-empty {
+      @apply flex flex-col items-start gap-4 font-paragraph;
+    }
+  }
 }
 
 .nutrition-section {
@@ -306,6 +566,79 @@ body::-webkit-scrollbar {
 
 .product-page .nutrition-text-scroll {
   margin-top: 0;
+}
+
+/* ---- Product pricing card ---------------------------------------- */
+.product-pricing {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 2rem;
+  padding: 1.5rem 2.25rem 1.1rem;
+  border: 1px solid #e8ddca;
+  border-radius: 1.5rem;
+  background: #fdebd2;
+  box-shadow: 0 12px 32px rgb(34 33 35 / 12%);
+}
+
+.product-pricing-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.3rem 0.9rem;
+  border-radius: 9999px;
+  background: #a02128;
+  color: #faeade;
+  font-family: var(--font-paragraph);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgb(160 33 40 / 35%);
+}
+
+.product-pricing-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+}
+
+.product-pricing-price {
+  color: #523122;
+  font-family: "Antonio", sans-serif;
+  font-size: clamp(2.75rem, 7vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.product-pricing-original {
+  color: #a26833;
+  font-family: var(--font-paragraph);
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-decoration-color: #a02128;
+  text-decoration-thickness: 2px;
+}
+
+.product-pricing-save {
+  margin: 0;
+  padding-top: 0.55rem;
+  border-top: 1px dashed #c89c6e;
+  width: 100%;
+  color: #7f3b2d;
+  font-family: var(--font-paragraph);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .product-purchase {

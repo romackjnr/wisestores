@@ -9,8 +9,8 @@ const MAX_TILT = 15;
 const TILT_SCALE = 1.05;
 
 // Faint giant words in the card corners (Nike: "NIKE" / "SHOES")
-const GHOST_TOP = "WISE";
-const GHOST_BOTTOM = "MAX";
+const GHOST_TOP = "NURTURE";
+const GHOST_BOTTOM = "NOVA";
 const BUY_LABEL = "Buy Now";
 
 const FALLBACK_ACCENT = "#e3a458";
@@ -198,6 +198,10 @@ const FlavorSlider = () => {
 
     mm.add("(min-width: 1025px)", () => {
       const section = ".flavor-section";
+      // The backdrop lives inside the section, so it is counter-translated by
+      // the same amount to stay fixed on screen while the section slides.
+      const targets = [section, ".flavor-bg"];
+      const dir = (i) => (i === 0 ? -1 : 1);
 
       // Total horizontal travel (same distance the old single tween used)
       const getTotal = () =>
@@ -209,8 +213,8 @@ const FlavorSlider = () => {
         7 * parseFloat(getComputedStyle(document.documentElement).fontSize);
 
       // Phase 1: begins as the section enters, ends exactly where the pin starts
-      gsap.to(section, {
-        x: () => -getPreview(),
+      gsap.to(targets, {
+        x: (i) => dir(i) * getPreview(),
         ease: "none",
         scrollTrigger: {
           trigger: section,
@@ -223,10 +227,10 @@ const FlavorSlider = () => {
 
       // Phase 2: pinned, continues from where phase 1 stopped (no jump)
       gsap.fromTo(
-        section,
-        { x: () => -getPreview() },
+        targets,
+        { x: (i) => dir(i) * getPreview() },
         {
-          x: () => -getTotal(),
+          x: (i) => dir(i) * getTotal(),
           ease: "none",
           immediateRender: false,
           scrollTrigger: {
@@ -241,36 +245,38 @@ const FlavorSlider = () => {
       );
     });
 
-    const titleTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".flavor-section",
-        start: "top top",
-        end: "bottom 80%",
-        scrub: true,
-      },
-    });
+    mm.add("(min-width: 1025px)", () => {
+      const titleTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".flavor-section",
+          start: "top top",
+          end: "bottom 80%",
+          scrub: true,
+        },
+      });
 
-    titleTl
-      .to(".first-text-split", {
-        xPercent: -30,
-        ease: "power1.inOut",
-      })
-      .to(
-        ".flavor-text-scroll",
-        {
-          xPercent: -22,
+      titleTl
+        .to(".first-text-split", {
+          xPercent: -30,
           ease: "power1.inOut",
-        },
-        "<"
-      )
-      .to(
-        ".second-text-split",
-        {
-          xPercent: -10,
-          ease: "power1.inOut",
-        },
-        "<"
-      );
+        })
+        .to(
+          ".flavor-text-scroll",
+          {
+            xPercent: -22,
+            ease: "power1.inOut",
+          },
+          "<"
+        )
+        .to(
+          ".second-text-split",
+          {
+            xPercent: -10,
+            ease: "power1.inOut",
+          },
+          "<"
+        );
+    });
 
     return () => mm.revert();
   });

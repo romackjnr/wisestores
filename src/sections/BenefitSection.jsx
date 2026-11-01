@@ -48,7 +48,7 @@ const BenefitSection = () => {
         <div className="col-center">
           <p>
             Unlock the Advantages: <br />
-            Explore the Key Benefits of Choosing SPYLT
+            Explore the Key Benefits of Choosing NurtureNova
           </p>
 
           <div className="mt-20 col-center">

@@ -1,8 +1,78 @@
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+// The three background images, in the order they appear.
+const BG_IMAGES = [
+  "https://res.cloudinary.com/msz67c6u/image/upload/v1793522245/message-bg.jpg",
+  "https://res.cloudinary.com/msz67c6u/image/upload/v1793522245/8674f1023e3a5bd0dab48865b0d324b9.jpg",
+  "https://res.cloudinary.com/msz67c6u/image/upload/v1793522574/athlete-2-1536x1003.webp",
+];
+
+const HOLD = 4; // seconds each image stays on screen
+const SLIDE = 1.2; // seconds the slide-up transition takes
 
 const MessageSection = () => {
+  const bgRef = useRef(null);
+
+  // Background: each image slides up over the previous one, then loops
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const slides = gsap.utils.toArray(".message-bg-slide");
+        const imgs = slides.map((slide) => slide.querySelector("img"));
+        const count = slides.length;
+
+        const tl = gsap.timeline({ repeat: -1 });
+
+        // Starting state (re-applied on every loop): first image showing
+        tl.set(slides, {
+          visibility: "visible",
+          yPercent: (i) => (i === 0 ? 0 : 100),
+          zIndex: (i) => i + 1,
+        }).set(imgs, { yPercent: 0 });
+
+        for (let i = 0; i < count; i++) {
+          const outgoing = slides[i];
+          const incoming = slides[(i + 1) % count];
+          const incomingImg = imgs[(i + 1) % count];
+
+          tl.set(incoming, { yPercent: 100, zIndex: count + 1 + i }, `+=${HOLD}`)
+            // new image slides up over the old one
+            .to(incoming, { yPercent: 0, duration: SLIDE, ease: "power3.inOut" })
+            // small parallax: the image inside lags, the old one drifts up
+            .fromTo(
+              incomingImg,
+              { yPercent: -25 },
+              { yPercent: 0, duration: SLIDE, ease: "power3.inOut" },
+              "<"
+            )
+            .to(outgoing, { yPercent: -20, duration: SLIDE, ease: "power3.inOut" }, "<");
+        }
+
+        // Let the last image rest before the loop restarts
+        tl.to({}, { duration: HOLD });
+
+        // Only run while the section is on screen
+        ScrollTrigger.create({
+          trigger: bgRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          onToggle: (self) => (self.isActive ? tl.play() : tl.pause()),
+        });
+      });
+
+      return () => mm.revert();
+    },
+    { scope: bgRef }
+  );
+
   useGSAP(() => {
     const firstMsgSplit = SplitText.create(".first-message", {
       type: "words",
@@ -68,7 +138,15 @@ const MessageSection = () => {
 
   return (
     <section className="message-content">
-      <div className="container mx-auto flex-center py-28 relative">
+      <div ref={bgRef} className="message-bg" aria-hidden="true">
+        {BG_IMAGES.map((src) => (
+          <div key={src} className="message-bg-slide">
+            <img src={src} alt="" draggable={false} />
+          </div>
+        ))}
+      </div>
+      <div className="message-overlay" aria-hidden="true" />
+      <div className="container mx-auto flex-center py-28 relative z-10">
         <div className="w-full h-full">
           <div className="msg-wrapper">
             <h1 className="first-message">Stir up your fearless past and</h1>
@@ -93,7 +171,7 @@ const MessageSection = () => {
             <div className="max-w-md px-10 flex-center overflow-hidden">
               <p>
                 Rev up your rebel spirit and feed the adventure of life with
-                WISEMAX supplements, where you’re one chug away from epic nostalgia and
+                NurtureNova supplements, where you’re one chug away from epic nostalgia and
                 fearless fun.
               </p>
             </div>

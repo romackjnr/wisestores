@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,900;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,900;1,900&display=swap");
 
 /* ------------------------------------------------------------------
    Exact port of "Nike Product Card Parallax 3D" (MIT, DivDev):
@@ -18,7 +18,7 @@
   --u: calc(100cqw / 300);
   --accent: #e3a458; /* overridden per card from the bg svg colour */
   width: clamp(260px, 26vw, 400px);
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 5 / 9;
   align-self: center;
   font-family: "Poppins", sans-serif;
 }
@@ -55,6 +55,7 @@
   max-width: none;
   object-fit: cover; /* try "contain" if your svg is already portrait */
   object-position: center;
+  filter: brightness(0.12) saturate(0.9);
   border-radius: calc(20 * var(--u));
   user-select: none;
   -webkit-user-drag: none;
@@ -103,11 +104,14 @@
   left: 0;
   width: 100%;
   padding-inline: calc(16 * var(--u));
+  font-family: "Anton", sans-serif;
   text-align: center;
+  text-transform: uppercase;
   color: #f8f8f8;
-  font-size: calc(24 * var(--u));
-  font-weight: 900;
+  font-size: calc(50.4 * var(--u));
+  font-weight: 400;
   line-height: 1.5;
+
   transform: translate3d(0, 0, calc(75 * var(--u)));
   opacity: 0;
   z-index: 10;

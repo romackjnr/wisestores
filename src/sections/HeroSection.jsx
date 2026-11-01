@@ -30,13 +30,14 @@ const getItemStyle = (i, activeIndex, isMobile) => {
 
   if (i === center) {
     return {
-      transform: `translateX(-50%) scale(${isMobile ? 1.25 : 1.68})`,
+      transform: `translateX(-50%) scale(${isMobile ? 1.15 : 1.4})`,
+      transformOrigin: "bottom center",
       filter: "none",
       opacity: 1,
       zIndex: 20,
       left: "50%",
-      height: isMobile ? "60%" : "92%",
-      bottom: isMobile ? "22%" : "0",
+      height: isMobile ? "40%" : "50%",
+      bottom: isMobile ? "40%" : "26%",
     };
   }
   if (i === left) {
@@ -46,8 +47,8 @@ const getItemStyle = (i, activeIndex, isMobile) => {
       opacity: 0.85,
       zIndex: 10,
       left: isMobile ? "20%" : "30%",
-      height: isMobile ? "16%" : "28%",
-      bottom: isMobile ? "32%" : "12%",
+      height: isMobile ? "14%" : "24%",
+      bottom: isMobile ? "42%" : "46%",
     };
   }
   if (i === right) {
@@ -57,8 +58,8 @@ const getItemStyle = (i, activeIndex, isMobile) => {
       opacity: 0.85,
       zIndex: 10,
       left: isMobile ? "80%" : "70%",
-      height: isMobile ? "16%" : "28%",
-      bottom: isMobile ? "32%" : "12%",
+      height: isMobile ? "14%" : "24%",
+      bottom: isMobile ? "42%" : "46%",
     };
   }
   return {
@@ -67,8 +68,8 @@ const getItemStyle = (i, activeIndex, isMobile) => {
     opacity: 1,
     zIndex: 5,
     left: "50%",
-    height: isMobile ? "13%" : "22%",
-    bottom: isMobile ? "32%" : "12%",
+    height: isMobile ? "12%" : "20%",
+    bottom: isMobile ? "42%" : "46%",
   };
 };
 
@@ -185,6 +186,9 @@ const HeroSection = () => {
           </div>
         ))}
       </div>
+
+      {/* Dark gradient behind the text block for readability */}
+      <div className="toon-text-scrim" />
 
       <div className="toon-bottom-left">
         <div key={activeIndex} className="toon-product-info">
