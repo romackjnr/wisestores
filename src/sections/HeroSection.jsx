@@ -80,18 +80,16 @@ const HeroSection = () => {
   const heroRef = useRef(null);
   const [paused, setPaused] = useState(false);
 
-  // Scroll parallax: the hero drifts down as you scroll past
+  // Hold the hero in place while the message section scrolls over it.
   useGSAP(
     () => {
-      gsap.to(heroRef.current, {
-        yPercent: 30,
-        ease: "power1.inOut",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "1% top",
-          end: "bottom top",
-          scrub: true,
-        },
+      ScrollTrigger.create({
+        trigger: heroRef.current,
+        start: "top top",
+        end: "bottom top",
+        pin: true,
+        pinSpacing: false,
+        anticipatePin: 1,
       });
     },
     { scope: heroRef }

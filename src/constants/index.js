@@ -106,6 +106,24 @@ const heroProducts = [
       "Chocolate protein powder drink mix with 50g protein and 1,260 calories per serving. Regularly tested for banned substances. 5lb tub.",
     bg: "#173453",
   },
+  {
+    id: "gold-standard-whey-vanilla",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793553974/file_000000005e2c82468c3111359c70af23.png",
+    title: "WHEY",
+    name: "GOLD STANDARD WHEY - VANILLA",
+    description:
+      "Vanilla-flavored Gold Standard whey protein powder in a 5 lb tub with 73 servings.",
+    bg: "#49161c",
+  },
+  {
+    id: "tota-war-pre-workout",
+    image: "https://res.cloudinary.com/msz67c6u/image/upload/v1793553973/file_00000000b85c81f48648c471eda8ada3.png",
+    title: "TOTA WAR",
+    name: "TOTA WAR PRE-WORKOUT - MIX BERRY",
+    description:
+      "Mix-berry flavored pre-workout supplement in a 300 g tub with 30 servings.",
+    bg: "#171513",
+  },
 ];
 
 const nutrientLists = [

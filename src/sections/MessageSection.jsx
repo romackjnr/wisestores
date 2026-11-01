@@ -86,7 +86,7 @@ const MessageSection = () => {
     });
 
     gsap.to(firstMsgSplit.words, {
-      color: "#faeade",
+      color: "#ffffff",
       ease: "power1.in",
       stagger: 1,
       scrollTrigger: {
@@ -97,7 +97,7 @@ const MessageSection = () => {
       },
     });
     gsap.to(secMsgSplit.words, {
-      color: "#faeade",
+      color: "#ffffff",
       ease: "power1.in",
       stagger: 1,
       scrollTrigger: {
@@ -171,7 +171,7 @@ const MessageSection = () => {
             <div className="max-w-md px-10 flex-center overflow-hidden">
               <p>
                 Rev up your rebel spirit and feed the adventure of life with
-                NurtureNova supplements, where you’re one chug away from epic nostalgia and
+                WISEMAX supplements, where you’re one chug away from epic nostalgia and
                 fearless fun.
               </p>
             </div>

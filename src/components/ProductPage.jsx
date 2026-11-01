@@ -94,7 +94,7 @@ const ProductPage = ({ product }) => {
     <>
       <section id="nutrition" className="nutrition-section product-page">
         <img
-          src={`${import.meta.env.BASE_URL}images/slider-dip.png`}
+          src={`${import.meta.env.BASE_URL}images/footer-dip.png`}
           alt=""
           className="w-full object-cover"
         />

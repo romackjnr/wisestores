@@ -17,7 +17,8 @@
   container-type: inline-size;
   --u: calc(100cqw / 300);
   --accent: #e3a458; /* overridden per card from the bg svg colour */
-  width: clamp(260px, 26vw, 400px);
+  /* +6% vs the original clamp(260px, 26vw, 400px) */
+  width: clamp(275.6px, 27.56vw, 424px);
   aspect-ratio: 5 / 9;
   align-self: center;
   font-family: "Poppins", sans-serif;
@@ -123,11 +124,14 @@
   opacity: 1;
 }
 
-/* ---- .buy (kept at left:50% exactly like the Nike card) ----------- */
+/* ---- .buy --------------------------------------------------------
+   Centred on the card (the label is longer now) and, like the circle and
+   product, it moves toward the viewer on hover / focus / press so it
+   scales up with the 3D perspective. ------------------------------- */
 .fc-buy {
   bottom: 0;
   left: 50%;
-  padding: calc(10 * var(--u)) calc(25 * var(--u));
+  padding: calc(10 * var(--u)) calc(22 * var(--u));
   border: 0;
   border-radius: calc(30 * var(--u));
   color: #fff;
@@ -135,10 +139,11 @@
   font-family: inherit;
   font-size: calc(16 * var(--u));
   font-weight: 900;
+  letter-spacing: 0.02em;
   line-height: normal;
   white-space: nowrap;
   cursor: pointer;
-  transform: translate3d(0, 0, calc(75 * var(--u)));
+  transform: translate3d(-50%, 0, calc(75 * var(--u)));
   opacity: 0;
   z-index: 10;
 }
@@ -147,6 +152,15 @@
 .fc-wrap:focus-within .fc-buy {
   bottom: calc(30 * var(--u));
   opacity: 1;
+  transform: translate3d(-50%, 0, calc(130 * var(--u)));
+}
+
+/* Direct hover / keyboard focus / press: pop forward a little more */
+.fc-wrap:hover .fc-buy:hover,
+.fc-wrap:focus-within .fc-buy:focus-visible,
+.fc-wrap:hover .fc-buy:active,
+.fc-wrap:focus-within .fc-buy:active {
+  transform: translate3d(-50%, 0, calc(165 * var(--u)));
 }
 
 .fc-buy:focus-visible {
@@ -200,6 +214,10 @@
   .fc-buy {
     bottom: calc(30 * var(--u));
     opacity: 1;
+    transform: translate3d(-50%, 0, calc(130 * var(--u)));
+  }
+  .fc-buy:active {
+    transform: translate3d(-50%, 0, calc(165 * var(--u)));
   }
 }
 

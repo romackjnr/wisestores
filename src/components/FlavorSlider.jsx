@@ -11,7 +11,7 @@ const TILT_SCALE = 1.05;
 // Faint giant words in the card corners (Nike: "NIKE" / "SHOES")
 const GHOST_TOP = "NURTURE";
 const GHOST_BOTTOM = "NOVA";
-const BUY_LABEL = "Buy Now";
+const BUY_LABEL = "GET 20% OFF";
 
 const FALLBACK_ACCENT = "#e3a458";
 const clamp01 = (n) => Math.min(1, Math.max(0, n));
